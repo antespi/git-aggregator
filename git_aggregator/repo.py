@@ -33,7 +33,7 @@ class Repo(object):
 
     _git_version = None
 
-    def __init__(self, cwd, remotes, merges, target,
+    def __init__(self, cwd, remotes, merges, target, tracking,
                  shell_command_after=None):
         """Initialize a git repository aggregator
 
@@ -50,6 +50,7 @@ class Repo(object):
         self.remotes = remotes
         self.merges = merges
         self.target = target
+        self.tracking = tracking
         self.shell_command_after = shell_command_after or []
 
     @property
@@ -157,7 +158,8 @@ class Repo(object):
                 self.init_repository(target_dir)
 
             os.chdir(target_dir)
-            self._switch_to_branch(self.target['branch'])
+            self._switch_to_branch(
+                self.target['branch'], tracking=self.tracking)
             for r in self.remotes:
                 self._set_remote(**r)
             self.fetch_all()
@@ -200,10 +202,13 @@ class Repo(object):
             cmd.insert(2, '--quiet')
         self.log_call(cmd)
 
-    def _switch_to_branch(self, branch_name):
+    def _switch_to_branch(self, branch_name, tracking):
         # check if the branch already exists
         logger.info("Switch to branch %s", branch_name)
-        self.log_call(['git', 'checkout', '-B', branch_name])
+        cmd = ['git', 'checkout', '-B', branch_name]
+        if tracking:
+            cmd.append(tracking)
+        self.log_call(cmd)
 
     def _execute_shell_command_after(self):
         logger.info('Execute shell after commands')

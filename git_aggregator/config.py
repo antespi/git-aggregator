@@ -89,6 +89,7 @@ def get_repos(config):
             'remote': remote_name,
             'branch': branch,
         }
+        repo_dict['tracking'] = repo_data.get('tracking', False)
         commands = []
         if 'shell_command_after' in repo_data:
             cmds = repo_data['shell_command_after']

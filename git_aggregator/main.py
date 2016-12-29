@@ -19,6 +19,8 @@ logger = logging.getLogger(__name__)
 
 _LOG_LEVEL_STRINGS = ['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG']
 
+VERSION='1.0.1.ot1'
+
 
 def _log_level_string_to_int(log_level_string):
     if log_level_string not in _LOG_LEVEL_STRINGS:
@@ -56,6 +58,13 @@ def get_parser():
     """Return :py:class:`argparse.ArgumentParser` instance for CLI."""
 
     main_parser = argparse.ArgumentParser()
+
+    main_parser.add_argument(
+        '-v', '--version',
+        dest='show_version',
+        action='store_true', default=False,
+        help='Show version and exit',
+    )
 
     main_parser.add_argument(
         '-c', '--config',
@@ -100,6 +109,10 @@ def main():
     argcomplete.autocomplete(parser, always_complete_options=False)
 
     args = parser.parse_args()
+
+    if args.show_version:
+        print "GitAggregate v%s" % VERSION
+        exit(0)
 
     setup_logger(
         level=args.log_level

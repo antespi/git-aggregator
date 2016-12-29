@@ -3,10 +3,11 @@
 # License AGPLv3 (http://www.gnu.org/licenses/agpl-3.0-standalone.html)
 
 import setuptools
+from git_aggregator.main import VERSION
 
 setuptools.setup(
     name='git-aggregator',
-    version='1.0.1.dev0',
+    version=VERSION,
     description='A library to aggregate git branches from different remotes '
                 'into a consolidated one',
     long_description=open('README.rst').read(),
