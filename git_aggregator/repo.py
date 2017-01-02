@@ -158,11 +158,11 @@ class Repo(object):
                 self.init_repository(target_dir)
 
             os.chdir(target_dir)
-            self._switch_to_branch(
-                self.target['branch'], tracking=self.tracking)
             for r in self.remotes:
                 self._set_remote(**r)
             self.fetch_all()
+            self._switch_to_branch(
+                self.target['branch'], tracking=self.tracking)
             merges = self.merges
             if not is_new:
                 # reset to the first merge

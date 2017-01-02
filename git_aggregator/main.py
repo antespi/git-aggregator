@@ -19,7 +19,7 @@ logger = logging.getLogger(__name__)
 
 _LOG_LEVEL_STRINGS = ['CRITICAL', 'ERROR', 'WARNING', 'INFO', 'DEBUG']
 
-VERSION='1.0.1.ot1'
+VERSION='1.0.1.ot2'
 
 
 def _log_level_string_to_int(log_level_string):
