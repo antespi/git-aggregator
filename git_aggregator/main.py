@@ -111,7 +111,7 @@ def main():
     args = parser.parse_args()
 
     if args.show_version:
-        print "GitAggregate v%s" % VERSION
+        print("GitAggregate v%s" % VERSION)
         exit(0)
 
     setup_logger(
